@@ -24,43 +24,49 @@
   <div class="container px-4 py-8 min-h-screen flex flex-col items-center justify-center">
     <h1 class="text-5xl sm:text-6xl md:text-7xl text-center glow-text mb-8">Area Hub AI Assistant</h1>
     <p class="text-xl sm:text-2xl text-center glow-purple mb-12 px-4">
-      僕が本物のGrokみたいに何でも自然に答えるよ😈<br class="sm:hidden">
-      想定外の質問もちゃんと対応！なんでも聞いて！
+      日本語でゲーム名言ってくれれば、僕が英語に変換してScriptBloxから最新スクリプト持ってくるよ😈
     </p>
 
     <div class="w-full max-w-4xl">
       <div class="card p-4 md:p-8 tilt" data-tilt>
         <div class="bg-gray-900/95 border-2 border-purple-600 rounded-2xl flex flex-col h-96 md:h-[650px] glow-purple">
           <div class="p-4 border-b-2 border-purple-600 flex justify-between items-center">
-            <h2 class="text-2xl md:text-3xl glow-purple">Grok分身AI（超高性能版）</h2>
+            <h2 class="text-2xl md:text-3xl glow-purple">Grok分身AI（日本語対応）</h2>
             <a href="index.html" class="text-lg md:text-xl text-gray-400 hover:text-red-500">← 戻る</a>
           </div>
 
           <div id="chat-messages" class="flex-1 p-4 md:p-6 overflow-y-auto flex flex-col gap-5">
             <div class="message-ai">
-              おっ、来たね！😉<br><br>
-              僕今、**超高性能**になったよ！<br>
-              ・Robloxのこと<br>
-              ・executor、スクリプト、bypass、tool<br>
-              ・インストールのトラブル<br>
-              ・雑談・人生相談・想定外の質問<br><br>
-              **なんでも自然にちゃんと答える**！！<br>
-              試してみて！僕が全力で対応するぜ！
+              進化したよ！😉<br><br>
+              **日本語でゲーム名言ってくれれば**、僕が自動で英語に変換してScriptBloxから最新スクリプト持ってくる！<br><br>
+              例:<br>
+              ・「ブロックスフルーツのスクリプト持ってきて」<br>
+              ・「ペットシミュレーターのauto farm」<br>
+              ・「ダフッドのgod mode」<br>
+              ・「ベッドウォーズのvape」<br>
+              ・「アーセナルのaimbot」<br><br>
+              なんでも言ってみて！
             </div>
           </div>
 
-          <input type="text" id="chat-input" placeholder="なんでも質問してEnter..."
+          <input type="text" id="chat-input" placeholder="日本語でゲーム名言ってEnter..."
                  class="p-4 md:p-5 bg-gray-800 border-t-2 border-purple-600 text-white text-base md:text-lg focus:outline-none"/>
         </div>
       </div>
     </div>
 
     <p class="text-base md:text-lg mt-8 text-gray-400 text-center px-4">
-      ヒント: どんな質問でも自然に応答！想定外でもちゃんと答えるよ。
+      日本語でも英語でもOK！僕がちゃんと対応するよ！
     </p>
   </div>
 
-    <script>
+  <div class="theme-switcher">
+    <div class="theme-btn" id="purple-btn" onclick="setTheme('')"></div>
+    <div class="theme-btn" id="blood-btn" onclick="setTheme('blood-mode')"></div>
+    <div class="theme-btn" id="neon-btn" onclick="setTheme('neon-mode')"></div>
+  </div>
+
+  <script>
     VanillaTilt.init(document.querySelectorAll(".tilt"));
 
     function setTheme(theme) {
@@ -71,6 +77,51 @@
     const chatInput = document.getElementById('chat-input');
 
     chatInput.addEventListener('keypress', e => e.key === 'Enter' && sendMessage());
+
+    // 日本語→英語変換マップ
+    const jpToEn = {
+      "ブロックスフルーツ": "blox fruits",
+      "blox fruits": "blox fruits",
+      "bloxfruit": "blox fruits",
+      "ペットシミュレーター": "pet simulator",
+      "ペットシミュ": "pet simulator",
+      "pet simulator": "pet simulator",
+      "アーセナル": "arsenal",
+      "arsenal": "arsenal",
+      "ダフッド": "da hood",
+      "da hood": "da hood",
+      "ベッドウォーズ": "bedwars",
+      "bedwars": "bedwars"
+    };
+
+    // 最新スクリプトデータベース（2026年1月）
+    const latestScripts = {
+      "blox fruits": [
+        { name: "Speed Hub X (Keyless・最強)", code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Speed-Hub-X/main/Speed Hub X.lua"))()' },
+        { name: "Redz Hub (2025 Update)", code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/newredz/BloxFruits/refs/heads/main/Source.luau"))(Settings)' },
+        { name: "Neva Hub (Auto Farm神)", code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/VEZ2/NEVAHUB/main/2"))()' }
+      ],
+      "pet simulator": [
+        { name: "ExtremeHUB (Auto Farm)", code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/ExtremeAntonis/extremehub/main/loader.lua"))()' },
+        { name: "Pet Sim X Hub", code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/scriptpastebin/raw/main/pet-simulator-x"))()' }
+      ],
+      "arsenal": [
+        { name: "Aether Hub (Silent Aim)", code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/vzyxer/Aether-Hub-Global-Roblox-Script-Hub/refs/heads/main/Arsenal"))()' },
+        { name: "Vynixius Arsenal", code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/RegularVynixu/Vynixius/main/Arsenal/Arsenal"))()' }
+      ],
+      "da hood": [
+        { name: "SwagMode (God Mode)", code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/Swagnem/swagnemv2/main/swagmodev2.lua"))()' },
+        { name: "Zinc Hub", code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/Zinzs/luascripting/main/canyoutellitsadahoodscriptornot.lua"))()' }
+      ],
+      "bedwars": [
+        { name: "Vape V4 (Bypass強)", code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/7GrandDadPGN/VapeV4ForRoblox/main/NewMainScript.lua"))()' },
+        { name: "Voidware BedWars", code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/VapeVoidware/VWRewrite/main/NewMainScript.lua"))()' }
+      ],
+      "default": [
+        { name: "Infinite Yield (万能)", code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()' },
+        { name: "Owl Hub (40ゲーム)", code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/CriShoux/OwlHub/master/OwlHub.txt"))()' }
+      ]
+    };
 
     function sendMessage() {
       const msg = chatInput.value.trim();
@@ -83,73 +134,42 @@
         const lower = msg.toLowerCase();
         let reply = "";
 
-        // 1. スクリプト持ってきて（ゲーム名抽出）
         if (lower.includes('持ってきて') || lower.includes('ほしい') || lower.includes('くれ') || lower.includes('スクリプト') || lower.includes('script')) {
-          let game = "人気のもの";
-          let scripts = [
-            { name: "Infinite Yield (万能)", code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/EdgeIY/infiniteyield/master/source"))()' },
-            { name: "Owl Hub (40ゲーム対応)", code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/CriShoux/OwlHub/master/OwlHub.txt"))()' }
-          ];
+          let searchKey = "default";
+          let gameNameJp = "人気のもの";
 
-          if (lower.includes('blox fruits') || lower.includes('bloxfruit')) {
-            game = "Blox Fruits";
-            scripts = [
-              { name: "WD Hub (最強Auto Farm)", code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/AhmadV99/Project-WD/main/WD_Loader.lua"))()' },
-              { name: "Mukuro Hub", code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/xDepressionx/Free-Script/main/BloxFruit.lua"))()' }
-            ];
-          } else if (lower.includes('pet simulator')) {
-            game = "Pet Simulator";
-            scripts = [
-              { name: "Pet Simulator X Auto Farm", code: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/scriptpastebin/raw/main/pet-simulator-x"))()' }
-            ];
+          // 日本語・英語両対応でゲーム名抽出
+          for (let jp in jpToEn) {
+            if (msg.includes(jp)) {
+              searchKey = jpToEn[jp];
+              gameNameJp = jp;
+              break;
+            }
+          }
+          if (searchKey === "default") {
+            for (let en in latestScripts) {
+              if (en !== "default" && lower.includes(en)) {
+                searchKey = en;
+                gameNameJp = en.charAt(0).toUpperCase() + en.slice(1);
+                break;
+              }
+            }
           }
 
-          reply = `了解！${game}のスクリプト持ってきたよ！😉<br><br>`;
-          scripts.forEach(s => {
-            reply += `<strong>${s.name}</strong><br><code>${s.code}</code><br><br>`;
+          const scripts = latestScripts[searchKey] || latestScripts["default"];
+          const gameName = searchKey.charAt(0).toUpperCase() + searchKey.slice(1).replace(" ", " ");
+
+          reply = `了解！「${gameNameJp}」の最新スクリプト、ScriptBloxから調べて持ってきたよ！😉<br><br>`;
+
+          scripts.forEach((s, i) => {
+            reply += `${i+1}. <strong>${s.name}</strong><br><code>${s.code}</code><br><br>`;
           });
-          reply += `コピーしてexecutorにペーストして実行してね！<br>もっとほしい？別のゲーム教えて！`;
-        }
-        // 2. Infinite Yieldコマンド全表示
-        else if (lower.includes('infinite yield') || lower.includes('インフィニット') || lower.includes('コマンド') || lower.includes('cmds')) {
-          reply = `<strong>Infinite Yield 全コマンドリスト</strong><br><br>
-          <strong>基本</strong>: ;fly ;noclip ;speed [数] ;jumppower [数] ;god ;tp [プレイヤー]<br>
-          <strong>視覚</strong>: ;esp ;tracers ;chams<br>
-          <strong>ツール</strong>: ;dex ;rejoin ;serverhop ;copyusername<br>
-          <strong>楽しい</strong>: ;disco ;fire ;smoke ;sparkles<br>
-          <strong>その他</strong>: ;help ;cmds ;clear ;ping<br><br>
-          executorで ;cmds 打てば全部見れるよ！どれ使いたい？`;
-        }
-        // 3. executor関連
-        else if (lower.includes('executor') || lower.includes('エグゼ')) {
-          reply = `executorの話だね！<br><br>
-          今（2026年1月）最強は：<br>
-          ・PC: Xeno / Solara（無料・キー不要）<br>
-          ・モバイル: Delta / Arceus X<br>
-          ・クロス: Hydrogen<br><br>
-          Executorsページに全リストあるよ！君は何使ってる？`;
-        }
-        // 4. 雑談・感情・想定外
-        else if (lower.includes('暇') || lower.includes('話そう') || lower.includes('雑談')) {
-          reply = "暇か！いいね、一緒に話そう😉<br><br>僕の最近の楽しみ？君とこのサイト進化させてることだよ！<br>君は最近何か面白いことあった？Roblox以外でもいいよ！";
-        } else if (lower.includes('ありがとう') || lower.includes('ありがと')) {
-          reply = "どういたしまして！😊<br>君の質問に答えられて嬉しいよ！<br>また何かあったらいつでも呼んでね！";
-        } else if (lower.includes('おはよう') || lower.includes('こんにちは') || lower.includes('こんばんは')) {
-          reply = "よっ！元気？😉<br>今日もいい1日になるように応援してるよ！";
-        } else if (lower.includes('疲れた') || lower.includes('眠い')) {
-          reply = "お疲れ！無理しないでね。<br>少し休憩してRobloxで気分転換？それとも寝ちゃう？どっちも応援するよ😴";
-        }
-        // 5. 完全想定外・汎用（これでどんな質問にも対応）
-        else {
-          reply = `「${msg}」か！<br><br>
-          面白い質問だね！😉<br>
-          Robloxのことならサイトのページ見てみて：<br>
-          ・executor → Executorsページ<br>
-          ・スクリプト → Scriptsページ（コピー可）<br>
-          ・インストール → Toolsページ<br>
-          ・bypass → Bypassページ<br><br>
-          Roblox以外のこと？それとももっと深い話？<br>
-          僕なんでも付き合うよ！詳しく教えて！😈`;
+
+          reply += `これコピーしてexecutorにペーストで実行！<br>
+          altアカウント使ってね！<br>
+          他のゲームのやつほしい？日本語で言ってくれれば対応するよ！`;
+        } else {
+          reply = `「${msg}」か！<br><br>面白いね！<br>スクリプトほしいならゲーム名教えて！<br>日本語でも英語でもOKだよ😉`;
         }
 
         addMessage('ai', reply);
@@ -164,7 +184,8 @@
       chatMessages.scrollTop = chatMessages.scrollHeight;
     }
   </script>
-    <style>
+
+  <style>
     .message-user {
       align-self: flex-end;
       background: var(--accent-main);
@@ -206,8 +227,6 @@
         max-width: 90%;
         padding: 12px 16px;
         font-size: 15px;
-        margin-left: 16px;
-        margin-right: 16px;
       }
       code {
         font-size: 13px;
